@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
+
 void main() {
   runApp(calApp());
 }
@@ -29,94 +30,114 @@ class _SimpleCalState extends State<SimpleCal> {
   String expresion = "";
   double equationSize = 38.0;
   double resultSize = 48.0;
+  Color bgColor = Color(0xffb9fbec3);
+  Color bgColor1 = Color(0xffb0e5c68);
+  Color bgColor2 = Color(0xffbf9fbfb);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('asdasdasd')),
+      backgroundColor: bgColor ,
+      //appBar: AppBar(title: Text('asdasdasd')),
       body: Column(
+        
         children: <Widget>[
-          Container(
+          Expanded(
+            
+             child: Divider( color: bgColor,),
+          ),
+            Container(
+            
             alignment: Alignment.centerRight,
             padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
             child: Text(
               equation,
-              style: TextStyle(fontSize: equationSize),
+              style: TextStyle(fontSize: equationSize, color: bgColor1),
             ),
           ),
-          Container(
+             Container(
+            
             alignment: Alignment.centerRight,
             padding: EdgeInsets.fromLTRB(10, 30, 10, 10),
             child: Text(
               result,
-              style: TextStyle(fontSize: resultSize),
+              style: TextStyle(fontSize: resultSize,color: bgColor1, fontWeight: FontWeight.w600),
             ),
           ),
-          Expanded(
-            child: Divider(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width * .75,
-                child: Table(children: [
-                  TableRow(children: [
-                    _buildBtn("C", 1, Colors.redAccent),
-                    _buildBtn("⌫", 1, Colors.blue),
-                    _buildBtn("/", 1, Colors.blue),
+          Container(
+            height: 420,
+
+            color: bgColor2,
+            child: Row(
+            
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  color: bgColor2,
+                  width: MediaQuery.of(context).size.width * .75,
+                  child: Table(children: [
+                    TableRow(children: [
+                      _buildBtn("C", 1, bgColor, bgColor2),
+                      _buildBtn("⌫", 1,bgColor, bgColor2),
+                      _buildBtn("%", 1, bgColor, bgColor2),
+                    ]),
+                    TableRow(children: [
+                      _buildBtn("7", 1, bgColor2, bgColor1),
+                      _buildBtn("8", 1, bgColor2, bgColor1),
+                      _buildBtn("9", 1, bgColor2, bgColor1),
+                    ]),
+                    TableRow(children: [
+                      _buildBtn("4", 1, bgColor2, bgColor1),
+                      _buildBtn("5", 1, bgColor2, bgColor1),
+                      _buildBtn("6", 1, bgColor2, bgColor1),
+                    ]),
+                    TableRow(children: [
+                      _buildBtn("1", 1, bgColor2, bgColor1),
+                      _buildBtn("2", 1, bgColor2, bgColor1),
+                      _buildBtn("3", 1, bgColor2, bgColor1),
+                    ]),
+                    TableRow(children: [
+                      _buildBtn(".", 1, bgColor2,bgColor1),
+                      _buildBtn("0", 1, bgColor2,bgColor1),
+                      _buildBtn("00", 1, bgColor2,bgColor1),
+                    ]),
                   ]),
-                  TableRow(children: [
-                    _buildBtn("7", 1, Colors.black54),
-                    _buildBtn("8", 1, Colors.black54),
-                    _buildBtn("9", 1, Colors.black54),
-                  ]),
-                  TableRow(children: [
-                    _buildBtn("4", 1, Colors.black54),
-                    _buildBtn("5", 1, Colors.black54),
-                    _buildBtn("6", 1, Colors.black54),
-                  ]),
-                  TableRow(children: [
-                    _buildBtn("1", 1, Colors.black54),
-                    _buildBtn("2", 1, Colors.black54),
-                    _buildBtn("3", 1, Colors.black54),
-                  ]),
-                  TableRow(children: [
-                    _buildBtn(".", 1, Colors.black54),
-                    _buildBtn("0", 1, Colors.black54),
-                    _buildBtn("00", 1, Colors.black54),
-                  ]),
-                ]),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.25,
-                child: Table(
-                  children: [
-                    TableRow(children: [_buildBtn('×', 1, Colors.blue)]),
-                    TableRow(children: [_buildBtn('-', 1, Colors.blue)]),
-                    TableRow(children: [_buildBtn('+', 1, Colors.blue)]),
-                    TableRow(children: [_buildBtn('=', 2, Colors.redAccent)]),
-                  ],
                 ),
-              ),
-            ],
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  child: Table(
+                    children: [
+                      
+                      TableRow(children: [_buildBtn('/', 1, bgColor,bgColor2)]),
+                      TableRow(children: [_buildBtn('×', 1, bgColor,bgColor2)]),
+                      TableRow(children: [_buildBtn('-', 1, bgColor,bgColor2)]),
+                      TableRow(children: [_buildBtn('+', 1, bgColor,bgColor2)]),
+                      TableRow(children: [_buildBtn('=', 1, bgColor1, bgColor2)]),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildBtn(String btnText, double btnHeight, Color bntColor) {
+  Widget _buildBtn(String btnText, double btnHeight, Color bntColor, Color btnCText) {
     return Container(
         height: MediaQuery.of(context).size.height * 0.1 * btnHeight,
-        color: bntColor,
+        padding: EdgeInsets.all(10),
+        
         child: FlatButton(
+          color: bntColor,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(0.0),
+              borderRadius: BorderRadius.circular(10.0),
               side: BorderSide(
-                  color: Colors.white, width: 1, style: BorderStyle.solid)),
-          padding: EdgeInsets.all(16.0),
+                  color:bntColor, width: 1, style: BorderStyle.solid)
+                  ),
           child: Text(btnText,
-              style: TextStyle(fontSize: 30.0, color: Colors.white)),
+              style: TextStyle(fontSize: 30.0, color: btnCText)),
           onPressed: () => btnPres(btnText),
         ));
   }
@@ -133,12 +154,11 @@ class _SimpleCalState extends State<SimpleCal> {
           equation = "0";
         }
       } else if (btnText == "=") {
-            expresion = equation;
-            expresion = equation.replaceAll('x', '*');
-            expresion = equation.replaceAll('/', '/');
-           
+        expresion = equation;
+        expresion = equation.replaceAll('x', '*');
+        expresion = equation.replaceAll('/', '/');
+
         try {
-      
           Parser p = Parser();
           Expression exp = p.parse(expresion);
 
