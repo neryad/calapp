@@ -152,10 +152,9 @@ class _SimpleCalState extends State<SimpleCal> {
           equation = "0";
         }
       } else if (btnText == "=") {
+        print(equation);
         expresion = equation;
-        expresion = equation.replaceAll('x', '*');
-        expresion = equation.replaceAll('/', '/');
-        expresion = equation.replaceAll('%', '%');
+        expresion = equation.replaceAll('×', '*');
 
         try {
           Parser p = Parser();
