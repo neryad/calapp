@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:math_expressions/math_expressions.dart';
 void main() {
   runApp(calApp());
 }
@@ -63,7 +63,7 @@ class _SimpleCalState extends State<SimpleCal> {
                   TableRow(children: [
                     _buildBtn("C", 1, Colors.redAccent),
                     _buildBtn("⌫", 1, Colors.blue),
-                    _buildBtn("÷", 1, Colors.blue),
+                    _buildBtn("/", 1, Colors.blue),
                   ]),
                   TableRow(children: [
                     _buildBtn("7", 1, Colors.black54),
@@ -133,6 +133,21 @@ class _SimpleCalState extends State<SimpleCal> {
           equation = "0";
         }
       } else if (btnText == "=") {
+            expresion = equation;
+            expresion = equation.replaceAll('x', '*');
+            expresion = equation.replaceAll('/', '/');
+           
+        try {
+      
+          Parser p = Parser();
+          Expression exp = p.parse(expresion);
+
+          ContextModel cm = ContextModel();
+
+          result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+        } catch (e) {
+          result = "Error";
+        }
         equation = "0";
       } else {
         if (equation == "0") {
